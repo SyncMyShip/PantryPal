@@ -7,15 +7,15 @@ class Recipe(models.Model):
     name= models.CharField(max_length=50)
     cooking_time= models.IntegerField()
     ingredients= models.TextField(max_length=255)
-    difficulty= models.CharField(
-        max_length=20,
-        choices=[
-            ('easy', 'Easy'),
-            ('medium', 'Medium'),
-            ('intermediate', 'Intermediate'),
-            ('hard', 'Hard')
-        ]
-    )
+    # difficulty= models.CharField(
+    #     max_length=20,
+    #     choices=[
+    #         ('easy', 'Easy'),
+    #         ('medium', 'Medium'),
+    #         ('intermediate', 'Intermediate'),
+    #         ('hard', 'Hard')
+    #     ]
+    # )
     comments= models.TextField(blank=True, null=True)
     pic = models.ImageField(upload_to='recipes', default='no_picture.jpg')
 
