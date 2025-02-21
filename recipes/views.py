@@ -29,14 +29,15 @@ def search(request):
         recipe_name = request.POST.get('recipe_name', '')
         ingredient = request.POST.get('ingredient', '')
         max_cooking_time = request.POST.get('cooking_time', '')
-        difficulty = request.POST.get('difficulty', '')
+        # difficulty = request.POST.get('difficulty', '')
         chart_type = request.POST.get('chart_type', '')
 
         # Start with all recipes
         qs = Recipe.objects.all()
 
         # Apply filters if any non-required search parameter is provided
-        filter_count = sum([bool(recipe_name), bool(ingredient), bool(max_cooking_time), bool(difficulty)])
+        # filter_count = sum([bool(recipe_name), bool(ingredient), bool(max_cooking_time), bool(difficulty)])
+        filter_count = sum([bool(recipe_name), bool(ingredient), bool(max_cooking_time)])
 
         if filter_count > 0:
             if recipe_name:
@@ -45,12 +46,16 @@ def search(request):
                 qs = qs.filter(ingredients__icontains=ingredient)
             if max_cooking_time:
                 qs = qs.filter(cooking_time__lte=max_cooking_time)
-            if difficulty:
-                qs = qs.filter(difficulty=difficulty)
+            # if difficulty:
+            #     qs = qs.filter(difficulty=difficulty)
 
         # If there are results, prepare the DataFrame and chart
-        if qs:
-            recipes_df = pd.DataFrame(qs.values())
+        if qs.exists():
+            # recipes_df = pd.DataFrame(qs.values())
+            recipes_df = pd.DataFrame(list(qs.values('id', 'name', 'ingredients', 'cooking_time', 'pic')))
+
+            difficulties = [recipe.difficulty for recipe in qs]  # Calculate difficulty for each recipe
+            recipes_df['difficulty'] = difficulties 
 
             # Generate chart only if the checkbox is checked and a chart type is provided
             if chart_type and recipes_df.shape[0] > 0:
@@ -65,6 +70,7 @@ def search(request):
             # Convert to HTML with links
             recipes_df['name'] = '<a href="' + recipes_df['id'].apply(lambda id: reverse('recipes:detail', kwargs={'pk': id})).astype(str) + '">' + recipes_df['name'] + '</a>'
             recipes_df['picture'] = '<img src="' + settings.MEDIA_URL + recipes_df['pic'] + '" alt="Recipe Image" style="width:100px;height:auto;">'
+            # recipes_df = recipes_df[['name', 'picture', 'ingredients', 'cooking_time', 'difficulty']].to_html(escape=False, index=False)
             recipes_df = recipes_df[['name', 'picture', 'ingredients', 'cooking_time', 'difficulty']].to_html(escape=False, index=False)
 
     # Prepare context data to send to template
