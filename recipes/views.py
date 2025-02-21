@@ -52,9 +52,6 @@ def search(request):
         if qs:
             recipes_df = pd.DataFrame(qs.values())
 
-            difficulties = [recipe.difficulty for recipe in qs]  # Calculate difficulty for each recipe
-            recipes_df['difficulty'] = difficulties
-            
             # Generate chart only if the checkbox is checked and a chart type is provided
             if chart_type and recipes_df.shape[0] > 0:
                 # Use difficulty counts for the pie chart
