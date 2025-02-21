@@ -23,7 +23,7 @@ class Recipe(models.Model):
         return reverse('recipes:detail', kwargs={'pk': self.pk})
 
     # calculate difficulty of recipe using cooking time and number of ingredients
-    def difficulty(self):
+    def calculate_difficulty(self):
         ingredients = self.ingredients.split(', ')
         if self.cooking_time < 10 and len(ingredients) < 4:
             difficulty = 'Easy'
