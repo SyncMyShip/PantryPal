@@ -84,7 +84,7 @@ def add_recipe(request):
 
     if request.method == "POST" and add_recipe.is_valid():
         recipe_instance = add_recipe.save(commit=False)
-        recipe_instance.difficulty = recipe_instance.calculate_difficulty()
+        # recipe_instance.difficulty = recipe_instance.calculate_difficulty()
         recipe_instance.save()
         response = redirect("recipes:list")
 
