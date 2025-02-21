@@ -15,7 +15,7 @@ class Recipe(models.Model):
             ('intermediate', 'Intermediate'),
             ('hard', 'Hard')
         ]
-    )
+    ) 
     comments= models.TextField(blank=True, null=True)
     pic = models.ImageField(upload_to='recipes', default='no_picture.jpg')
 
