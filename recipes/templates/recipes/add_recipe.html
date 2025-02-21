@@ -1,0 +1,138 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pantry Pal - {{object.name}} Details</title>
+        <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+        <style>
+            .login-container {
+                background-color: rgba(0, 0, 0, 0.8); /* For consistent overlay effect */
+                /* padding: 40px; */
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                width: 100%; /* Adjust as needed */
+                margin: auto; /* Centering the container */
+            }
+
+            .login-form input,
+            .login-form textarea {
+                width: 100%; /* Full width */
+                padding: 12px;
+                margin-bottom: 20px;
+                font-size: 16px;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+                color: #2c3e50; /* Text color */
+                display: block;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .login-form button {
+                background-color: #ff6347; /* Same button color */
+                color: white;
+                border-radius: 8px;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
+
+            .login-form button:hover {
+                background-color: #575757; /* Hover effect */
+            }
+
+            .login-header h2 {
+                font-family: 'Playfair Display', serif; /* Consistent heading font */
+                color: #fff; /* Header text color */
+                font-size: 36px; /* Adjust as necessary */
+                margin: 10px;
+                color: #ff6347;
+            }
+
+            input[type=file] {
+                padding: .2em .4em;
+                border-radius: .2em;
+                transition: 1s;
+                color: white;
+            }
+
+            input[type=file]::file-selector-button {
+                padding: .2em .4em;
+                border-radius: .2em;
+                background-color: #0072b5;
+                transition: 1s;
+                color: white;
+                }
+
+                input[type=file]::file-selector-button:hover {
+                background-color: #575757;
+                }
+
+            @media (max-width: 768px) {
+                .login-container {
+                    width: 90%; /* Responsive width */
+                    padding: 20px; /* Adjust padding for smaller screens */
+                }
+
+                .login-header h2 {
+                    font-size: 28px; /* Responsive font size */
+                }
+            }
+        </style>
+    
+    </head>
+
+    <body>
+        <div class="container">
+            <!-- Navbar Section -->
+            <nav>
+                <ul class="navbar">
+                    <li>
+                        <a href="/home">Home</a>
+                    </li>
+                    <li>
+                        <a href="/list">Recipes</a>
+                    </li>
+                    <li>
+                        <a href="/recipes">Search</a>
+                    </li>
+                    <li>
+                        <a href="/about">About</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="login-container">
+                <div class="login-header" style="top: 10%;">
+                    <h2>Add Recipe</h2>
+                </div>
+                <div class="login-form" style="position: relative; top: 10%;">
+                    <form method="POST" class="input-group">
+                    {% csrf_token %}
+                        <input placeholder="name" type="text" name="name" id="id_name" required>
+                        <input placeholder="cooking time (min)" type="number" name="cooking_time" id="id_cooking_time" required>
+                        <textarea placeholder="ingredient(s)" name="ingredients" id="id_ingredients" required></textarea>
+                        <textarea placeholder="comments" name="comments" id="id_comments"></textarea>
+                        <label for="pic">Photo:</label>
+                        <input type="file" name="pic" id="pic">        
+                        <button type="submit">Submit Recipe</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </body>
+
+    <footer>
+        <p>&copy; 2025 Pantry Pal. All rights reserved.</p>
+    </footer>
+</html>

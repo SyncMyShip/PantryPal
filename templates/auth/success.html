@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Logout</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="logged-out-container">
+            <div class="logged-out-header">
+                <h2>You've successfully logged out!</h2>
+            </div>
+            <a class="login_btn" style="color:white" href="{%url 'login' %}"> Login </a>
+        </div>
+    </body>
+
+    <footer>
+        <p>&copy; 2025 Pantry Pal. All rights reserved.</p>
+    </footer>
+</html>

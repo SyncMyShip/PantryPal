@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pantry Pal - Recipes</title>
+        <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <!-- Navbar Section -->
+            <nav>
+                <ul class="navbar">
+                    <li>
+                        <a href="/home">Home</a>
+                    </li>
+                    <li>
+                        <a href="/list">Recipes</a>
+                    </li>
+                    <li>
+                        <a href=/recipes>Search</a>
+                    </li>
+                    <li>
+                        <a href=/about>About</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+
+
+            <!-- Main Section -->
+            <section class="recipes-section">
+                <a href="{% url 'recipes:add_recipe' %}" style="text-align: left; padding: 5px; margin-right: 80%; display: inline-block; color: #fff; border-radius: 5px; background-color: #0072b5;">Add New Recipe</a>
+                <h2 style="text-align: center;">Browse Recipes</h2>
+                <p style="text-align: center;">Discover a variety of delicious dishes to try today.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Recipe Name</th>
+                            <th>Recipe Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for object in object_list %}
+                        <tr>
+                            <td>
+                                <a href="{{object.get_absolute_url}}"> {{ object.name }} </a>
+                            </td>
+                            <td><img src="{{ object.pic.url }}" alt="{{ object.name }}" class="recipe-img" /></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </body>
+
+    <footer>
+        <p>&copy; 2025 Pantry Pal. All rights reserved.</p>
+    </footer>
+</html>

@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pantry Pal - {{object.name}} Details</title>
+        <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+    </head>
+
+    <body>
+        <div class="container">
+            <!-- Navbar Section -->
+            <nav>
+                <ul class="navbar">
+                    <li>
+                        <a href="/home">Home</a>
+                    </li>
+                    <li>
+                        <a href="/list">Recipes</a>
+                    </li>
+                    <li>
+                        <a href=/recipes>Search</a>
+                    </li>
+                    <li>
+                        <a href=/about>About</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Section -->
+            <section class="recipe-details">
+                <h1 class="recipe-title">{{object.name}}</h1>
+
+                <div class="recipe-info">
+                    <div class="recipe-image">
+                        <img src="{{object.pic.url}}" alt="{{object.name}}" />
+                    </div>
+
+                    <div class="recipe-text">
+                        <div class="info-item">
+                            <strong>Name:</strong> {{object.name}}
+                        </div>
+                        <div class="info-item">
+                            <strong>Cooking Time:</strong> {{object.cooking_time}} min
+                        </div>
+                        <div class="info-item">
+                            <strong>Difficulty:</strong> {{object.calculate_difficulty}}
+                        </div>
+                        <div class="info-item">
+                            <strong>Ingredients:</strong> {{object.ingredients}}
+                        </div>
+                        <div class="info-item">
+                            <strong>Comments:</strong> {{object.description}}
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <!-- <a href="/list" class="btn-back">Back</a> -->
+                     <button onclick="goBack()" class="btn-back">Back</button>
+                </div>
+            </section>
+        </div>
+    </body>
+
+    <footer>
+        <p>&copy; 2025 Pantry Pal. All rights reserved.</p>
+    </footer>
+</html>

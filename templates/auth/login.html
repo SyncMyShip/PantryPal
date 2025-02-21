@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+</head>
+<body>
+    <!-- <div class="navbar">
+        <nav>
+            <ul class="navbar">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/list">Recipes</a></li>
+            </ul>
+        </nav>
+    </div> -->
+    
+    <div class="login-container">
+        <!-- Header Section -->
+        <div class="login-header">
+            <h2>Login</h2>
+        </div>
+
+        <!-- Login Form Section -->
+        <div class="login-form">
+            {% comment %} check for error messages {% endcomment %}
+            {% if error_message %}
+                {{error_message}}
+            {% endif %}
+
+            <form action="" method="POST" class="input-group">
+                {% comment %} add Django security token {% endcomment %}
+                {% csrf_token %}
+            
+                {% comment %} print form recieved from view {% endcomment %}
+                {{form}}
+            
+                {% comment %} add button {% endcomment %}
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<footer>
+    <p>&copy; 2025 Pantry Pal. All rights reserved.</p>
+</footer>
+</html>

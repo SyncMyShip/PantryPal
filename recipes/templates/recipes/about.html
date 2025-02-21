@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About</title>
+        <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+
+                <!-- Navbar Section -->
+                <nav>
+                    <ul class="navbar">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li>
+                            <a href="/list">Recipes</a>
+                        </li>
+                        <li>
+                            <a href=/recipes>Search</a>
+                        </li>
+                        <li>
+                            <a href=/about>About</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Navbar Section -->
+            </header>
+            
+            <div style="display: flex; position: absolute; top: 10%; margin-left: 10%; width: 100%;">
+                <img src="/static/recipes/images/francis-avatar.png" class="avatar" style="width: 15%; background-color: rgba(0, 0, 0, 0.8); border-radius: 50%;">
+                <br>
+                <div class="intro about" style="margin-top: 10%; width: 15%;">
+                    <p>
+                        <strong>Contact Me</strong>
+                        <hr>
+                        <br>
+                        <a href="https://linkedin.com/in/francis-jade">LinkedIn</a>
+                        <br>
+                        <a href="https://github.com/SyncMyShip">Github</a>
+                        <br>
+                        <a href="https://medium.com/@francis.jadec">Medium</a>
+                        <br>
+                        <a href="https://syncmyship.github.io/portfolio-website/">Portfolio</a>
+                    </p>
+                </div>
+            </div>
+            
+            <section class="intro " style="width: 60%; right: 10%; position: absolute; top: 10%; background-color: rgba(0, 0, 0, 0.8); border-radius: 5%;">
+                <h2>Hey there!</h2>
+                <p>
+                    I go by JD and I'm a Security Engineer based out of Charlotte, NC.
+                    I'm currently approaching my 5th year in the security industry and in that time
+                    I have found a passion for the work I do. 
+                    <br>
+                    <br>
+                    My entry into security began with a cybersecurity bootcamp, Evolve Security Academy.
+                    There, I learned foundational skills crucial to success in security. I had the chance to 
+                    explore some of the many different domains in this field; this list includes network security, 
+                    malware analysis, infrastructure as code (IaC), and pentesting to name a few. It's here that
+                    I developed an interest in vulnerability management and the endless possiblities of developing
+                    automated solutions. 
+                    <br>
+                    <br>
+                    Now you may be wondering how my journey led me to creating a web development portfolio. Let me 
+                    explain...
+                    <br>
+                    <br>
+                    According to Verizon's 2024 Data Breach Investigations Report (DBIR), web apps have become the second
+                    most common attack pattern. This means it's hard to avoid web applications when it comes to vulnerability
+                    management. With this being said, I chose to take up web development to give myself a better understanding
+                    of web related vulnerabilities.
+                    <br>
+                    <br>
+                    When I'm not working I love to get out on a run, or on a trail with my pup and partner. 
+                    <br>
+                    <br>
+                    Feel free to take a look at my profile to see some of my other work. If you'd like to connect or 
+                    discuss a project, don't hesitate to reach out!
+                    <br>
+                    <br>
+                    Thanks for dropping in!
+                </p>
+            </section>
+        </div>
+    </body>
+
+    <footer>
+        <p style="color: #ffffff; font-weight: bold;">&copy; 2025 Pantry Pal. All rights reserved.</p>
+    </footer>
+</html>
+

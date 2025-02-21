@@ -1,0 +1,258 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Recipes</title>
+        <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav>
+            <ul class="navbar">
+                <li>
+                    <a href="/home">Home</a>
+                </li>
+                <li>
+                    <a href="/list">Recipes</a>
+                </li>
+                <li>
+                    <a href="/recipes">Search</a>
+                </li>
+                <li>
+                    <a href=/about>About</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <form action="" method="POST" class="form-intro">
+                <h2>Search for Recipes</h2>
+                {% csrf_token %}
+                <div class="form-container">
+                    <div class="form-group">
+                        <input type="text" name="recipe_name" placeholder="Recipe Name">
+                        <input type="text" name="ingredient" placeholder="Ingredient">
+                        <input type="number" name="cooking_time" placeholder="Max Cooking Time (min)" min="1">
+                    </div>
+                    <div class="form-group">
+                        <select name="difficulty">
+                            <option value="">Select Difficulty</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        <select name="chart_type">
+                            <option value="">Select Chart Type</option>
+                            <option value="#1">Bar chart</option>
+                            <option value="#2">Pie chart</option>
+                            <option value="#3">Line chart</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="submit-button">{{ search_button_label }}</button>
+            </form>
+            
+
+            <div class="content">
+                {% if error_message %}
+                    <p class="error-message">{{ error_message }}</p>
+                {% endif %}
+            
+                <div class="left-column">
+                    {% if recipes_df %}
+                        <div class="recipe-info">
+                            {{ recipes_df | safe }}
+                        </div>
+                        <button id="toggle-chart" class="chart-toggle" onclick="toggleChart()">Show Chart</button>
+                        <div class="recipe-chart chart-container" id="chart-container" style="display: none;">
+                            <!-- <img src="data:image/png;base64, {{ chart | safe }}" alt="Recipe Chart"> -->
+                        </div>
+                    {% else %}
+                        <h3>No data available</h3>
+                    {% endif %}
+                </div>
+            
+                <div class="right-column" id="chart-column" style="display: none;">
+                    <div class="recipe-chart chart-container">
+                        <img src="data:image/png;base64, {{ chart | safe }}" alt="Recipe Chart">
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+
+        <script src="{% static 'recipes/search.js' %}" defer>
+            // function toggleChart() {
+            //     const chartContainer = document.getElementById('chart-container');
+            //     const chartColumn = document.getElementById('chart-column');
+            //     const toggleButton = document.getElementById('toggle-chart');
+
+            //     if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
+            //         chartContainer.style.display = 'block';
+            //         chartColumn.style.display = 'flex';
+            //         toggleButton.textContent = 'Hide Chart';
+            //     } else {
+            //         chartContainer.style.display = 'none';
+            //         chartColumn.style.display = 'none'; 
+            //         toggleButton.textContent = 'Show Chart';
+            //     }
+            // }
+
+        </script>
+
+        <style>
+            .form-intro {
+                z-index: 1;
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 10px;
+                width: 40%;
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }   
+            
+            .form-intro h2 {
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            
+            .form-container {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 50%;
+                height: auto;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group button {
+                padding: 12px;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+                font-size: 16px;
+            }
+
+            .submit-button {
+                margin-top: 20px; 
+                float: right; 
+                background-color: #ff6347;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
+
+            .submit-button:hover {
+                background-color: #575757;
+            }
+
+            .form-group button:hover {
+                background-color: #575757;
+            }
+
+            .content {
+                display: flex;
+                gap: 20px; 
+            }
+
+
+            .left-column {
+                flex: 1;
+                max-height: 400px; 
+                overflow-y: auto; 
+                transition: width 0.3s; 
+            }
+
+            .left-column.chart-active {
+                width: 50%; 
+            }
+
+            .right-column {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+
+            .chart-toggle {
+                background-color: #203a3b;
+                color: white;
+                font-weight: bold;
+                padding: 10px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                margin-top: 10px; 
+                position: absolute; 
+                bottom: 5%; 
+                right: 5%;
+            }
+
+            .chart-toggle:hover {
+                background-color: #575757;
+            }
+
+            .recipe-chart {
+                width: 100%; 
+                margin-top: 20px; 
+            }
+
+            @media (max-width: 768px) {
+                .content {
+                    flex-direction: column; 
+                }
+
+                .left-column {
+                    width: 100%; 
+                }
+
+                .right-column {
+                    width: 100%; 
+                    margin-top: 10px; 
+                }
+
+                .chart-toggle {
+                    position: static;
+                    margin-top: 10px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .left-column {
+                    max-height: 300px;
+                }
+
+                .right-column {
+                    width: 100%;
+                }
+
+                .chart-toggle {
+                    font-size: 14px;
+                    padding: 8px; 
+                }
+            }
+        </style>
+    </body>
+
+    <footer>
+        <p>&copy; 2025 Pantry Pal. All rights reserved.</p>
+    </footer>
+</html>
