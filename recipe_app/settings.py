@@ -79,29 +79,20 @@ WSGI_APPLICATION = 'recipe_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': get_env_variable('DB_NAME'),
+#         'USER': get_env_variable('DB_USER'),
+#         'PASSWORD': get_env_variable('DB_PASSWORD'),
+#         'HOST': get_env_variable('DB_HOST'),
+#         'PORT': get_env_variable('DB_PORT'),
 #     }
 # }
-def get_env_variable(var_name):
-    """ Get the environment variable or raise an exception """
-    try:
-        return os.environ[var_name]
-    except KeyError:
-        raise ImproperlyConfigured(f"Set the {var_name} environment variable")
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_env_variable('DB_NAME'),
-        'USER': get_env_variable('DB_USER'),
-        'PASSWORD': get_env_variable('DB_PASSWORD'),
-        'HOST': get_env_variable('DB_HOST'),
-        'PORT': get_env_variable('DB_PORT'),
-    }
-}
 
 
 # Password validation
