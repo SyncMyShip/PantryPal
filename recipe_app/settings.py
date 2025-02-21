@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','django-insecure-aorwa19-3fn$rhy
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['pantrypalapp-2ed29474bded.herokuapp.com]
+ALLOWED_HOSTS = ['pantrypalapp-2ed29474bded.herokuapp.com']
 
 
 # Application definition
