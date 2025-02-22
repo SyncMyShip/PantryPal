@@ -17,6 +17,16 @@
                 window.history.back();
             }
         </script>
+        <style>
+            .info-item {
+                font-size: 14px;
+            }
+
+            .btn-back {
+                margin-top: 4%;
+                padding: 10px 20px;
+            }
+        </style>
     </head>
 
     <body>
@@ -43,12 +53,12 @@
             </nav>
 
             <!-- Main Section -->
-            <section class="recipe-details">
+            <section class="recipe-details" style="width: 70vh; height: 70vh; margin-bottom: auto;">
                 <h1 class="recipe-title">{{object.name}}</h1>
 
                 <div class="recipe-info">
                     <div class="recipe-image">
-                        <img src="{{object.pic.url}}" alt="{{object.name}}" />
+                        <img src="{{object.pic.url}}" alt="{{object.name}}" style="width: 25vh; height: 25vh;"/>
                     </div>
 
                     <div class="recipe-text">
